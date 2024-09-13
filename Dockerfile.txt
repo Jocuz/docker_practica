@@ -1,0 +1,29 @@
+#Descargar la imagen de ubuntu
+FROM ubuntu:22.04
+
+# Acutualizar la lista de actualizaciones
+RUN apt-get update
+
+#Actualizar la imagen 
+RUN apt-get update -y
+
+# Instalar herramientas
+RUN apt-get install python3 -y
+
+#Copiar carpeta de wenpy
+COPY ./webpy /home/webpy
+
+#Establcer el directorio  de trabajo
+WORKDIR /home/webpy
+
+#Instalar PIP
+RUN apt-get install python3-pip -y
+
+#Instalar las librerias de requirements
+RUN pip install -r requirements.txt
+
+#Abrir el puerto
+EXPOSE 8080
+
+#Ejecutar la aplicación
+CMD [ "python3", "app.py" ]
